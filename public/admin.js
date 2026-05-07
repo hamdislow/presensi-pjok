@@ -1,0 +1,4 @@
+async function loadActive(){const r=await fetch('/api/session/active',{headers:authHeader()});const d=await r.json();active.textContent=d?`OPEN ${d.rombel_id}`:'No active session';}
+async function loadLogs(){const r=await fetch('/api/attendance/logs',{headers:authHeader()});const d=await r.json();tb.innerHTML='<tr><th>Status</th><th>Student</th><th>Distance</th><th>Time</th></tr>'+d.map(x=>`<tr><td>${x.status}</td><td>${x.student_id}</td><td>${Math.round(x.distance_meter||0)}</td><td>${x.created_at}</td></tr>`).join('')}
+openForm.onsubmit=async(e)=>{e.preventDefault();await fetch('/api/session/open',{method:'POST',headers:authHeader(),body:JSON.stringify({rombel_id:rombel_id.value,lat_target:lat_target.value,long_target:long_target.value,radius_meter:radius_meter.value})});loadActive();};
+loadActive();loadLogs();

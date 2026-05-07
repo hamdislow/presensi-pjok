@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang='en'>
+<head>
+  <meta charset='utf-8'>
+  <meta name='viewport' content='width=device-width,initial-scale=1'>
+  <title>EDU-PRESENSI | Student Portal</title>
+  <link rel='stylesheet' href='style.css'>
+</head>
+<body>
+  <main class='student-shell'>
+    <h2>Presensi Mandiri Mahasiswa</h2>
+    <p id='sessionInfo'>Memuat sesi...</p>
+    <p id='gpsInfo'>GPS belum aktif</p>
+
+    <form id='attForm'>
+      <select id='status'>
+        <option>HADIR</option>
+        <option>SAKIT</option>
+        <option>IZIN</option>
+        <option>DISPENSASI</option>
+      </select>
+      <select id='method'>
+        <option>LIVE_GPS</option>
+        <option>UPLOAD</option>
+      </select>
+      <textarea id='notes' placeholder='Catatan/alasan'></textarea>
+      <input id='file' type='file'>
+      <button>Submit Presensi</button>
+    </form>
+
+    <button onclick='trackLive()'>Aktifkan Live GPS 20 Detik</button>
+  </main>
+
+  <script src='app.js'></script>
+  <script src='student.js'></script>
+</body>
+</html>
