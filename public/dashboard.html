@@ -1,3 +1,54 @@
+<!doctype html>
+<html lang='en'>
+<head>
+  <meta charset='utf-8'>
+  <meta name='viewport' content='width=device-width,initial-scale=1'>
+  <title>EDU-PRESENSI | Dashboard</title>
+  <link rel='stylesheet' href='style.css'>
+</head>
+<body>
+  <div class='layout'>
+    <aside class='sidebar'>
+      <h3>EDU-PRESENSI</h3>
+      <p>Panel Admin / PJMK</p>
+      <button onclick='logout()'>Logout</button>
+    </aside>
+
+    <main class='content'>
+      <h2>Dashboard Presensi</h2>
+      <div class='grid'>
+        <div class='card'>
+          <h4>Active Session</h4>
+          <p id='active'>Loading...</p>
+        </div>
+
+        <div class='card'>
+          <h4>Open Attendance Session</h4>
+          <form id='openForm'>
+            <input id='rombel_id' placeholder='Rombel (admin only)'>
+            <input id='lat_target' placeholder='Latitude target' required>
+            <input id='long_target' placeholder='Longitude target' required>
+            <input id='radius_meter' value='500'>
+            <button>Buka Presensi</button>
+          </form>
+        </div>
+      </div>
+
+      <section class='table'>
+        <div class='grid'>
+          <button onclick='loadLogs()'>Refresh Logs</button>
+          <button onclick="window.open('/api/attendance/export/csv')">Export CSV</button>
+          <button onclick="window.open('/api/attendance/export/excel')">Export Excel</button>
+        </div>
+        <table id='tb'></table>
+      </section>
+    </main>
+  </div>
+
+  <script src='app.js'></script>
+  <script src='dashboard.js'></script>
+</body>
+</html>
 <!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><link rel='stylesheet' href='style.css'><title>Dashboard</title></head><body>
 <div class='layout'><aside class='sidebar'><h3>EDU-PRESENSI</h3><button onclick='logout()'>Logout</button></aside><main class='content'><h2>Dashboard Admin/PJMK</h2><div class='grid'><div class='card'><h4>Active Session</h4><p id='active'></p></div><div class='card'><h4>Open Session</h4><form id='openForm'><input id='rombel_id' placeholder='Rombel (admin only)'><input id='lat_target' placeholder='Lat' required><input id='long_target' placeholder='Long' required><input id='radius_meter' value='500'><button>Buka Presensi</button></form></div></div><div class='table'><button onclick='loadLogs()'>Refresh Logs</button><button onclick="window.open('/api/attendance/export/csv')">Export CSV</button><button onclick="window.open('/api/attendance/export/excel')">Export Excel</button><table id='tb'></table></div></main></div>
 <script src='app.js'></script><script src='dashboard.js'></script></body></html>
