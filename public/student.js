@@ -1,0 +1,6 @@
+let coords={latitude:null,longitude:null};let activeSession=null;
+async function getActive(){const r=await fetch('/api/session/active',{headers:authHeader()});activeSession=await r.json();sessionInfo.textContent=activeSession?`Session ${activeSession.id} open`:'No session open';}
+function trackLive(){let watchId;const start=Date.now();watchId=navigator.geolocation.watchPosition((p)=>{coords=p.coords;gpsInfo.textContent=`GPS: ${coords.latitude},${coords.longitude}`;if(Date.now()-start>20000){navigator.geolocation.clearWatch(watchId);gpsInfo.textContent+=' (final saved)';}},()=>gpsInfo.textContent='GPS denied',{enableHighAccuracy:true});}
+async function uploadFile(){if(!file.files[0])return null;const fd=new FormData();fd.append('file',file.files[0]);const r=await fetch('/api/upload',{method:'POST',headers:{Authorization:`Bearer ${localStorage.getItem('token')}`},body:fd});const d=await r.json();return d.webViewLink||null;}
+attForm.onsubmit=async(e)=>{e.preventDefault();const file_link=await uploadFile();const payload={session_id:activeSession?.id,status:status.value,method:method.value,latitude:coords.latitude,longitude:coords.longitude,notes:notes.value,file_link};const r=await fetch('/api/attendance/submit',{method:'POST',headers:authHeader(),body:JSON.stringify(payload)});alert((await r.json()).message||'Submitted');};
+getActive();
